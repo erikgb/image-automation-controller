@@ -269,7 +269,9 @@ func (r *ImageUpdateAutomationReconciler) Reconcile(ctx context.Context, req ctr
 				managed.AddTransportOptions(repositoryURL,
 					managed.TransportOptions{
 						TargetURL: repositoryURL,
-						CABundle:  access.auth.CAFile,
+						AuthOpts: &git.AuthOptions{
+							CAFile: access.auth.CAFile,
+						},
 					})
 
 				// We remove the options from memory, to avoid accumulating unused options over time.
